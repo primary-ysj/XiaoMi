@@ -16,6 +16,10 @@ axios.defaults.timeout = 8000
 // axios.defaults.baseURL = env.baseURL
 
 
+
+//引入公共组件
+import './components/global.js'
+
 //mock开关
 const mock = false
 if (mock) {

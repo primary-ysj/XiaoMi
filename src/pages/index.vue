@@ -1,6 +1,7 @@
 <template>
   <div>
     index
+    <server-bar></server-bar>
   </div>
 </template>
 
