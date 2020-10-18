@@ -1,0 +1,13 @@
+@mixin flex ($row:space-between, $col:center) {
+    display: flex;
+    justify-content: $row;
+    align-items: $col;
+}
+
+@mixin bgimg ($width:5px, $height:5px, $url:'', $size:contain) {
+    display: inline-block;
+    width: $width;
+    height: $height;
+    background: url($url) no-repeat center;
+    background-size: $size;
+}

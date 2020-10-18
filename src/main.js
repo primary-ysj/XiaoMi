@@ -2,7 +2,7 @@ import Vue from 'vue'
 import router from './router'
 import axios from 'axios'
 import App from './App.vue'
-import env from './env'
+// import env from './env'
 
 
 Vue.config.productionTip = false
@@ -13,8 +13,14 @@ axios.defaults.baseURL = '/api'
 axios.defaults.timeout = 8000
 
 //jsonp cors方式获取基地址
-axios.defaults.baseURL = env.baseURL
+// axios.defaults.baseURL = env.baseURL
 
+
+//mock开关
+const mock = false
+if (mock) {
+    require('./mock/api')
+}
 //响应拦截
 axios.interceptors.response.use(function(response) {
     let res = response.data;
