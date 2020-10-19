@@ -116,8 +116,19 @@
           <div class="swiper-button-next" slot="button-next"></div>
         </swiper>
       </div>
-      <div class="ads-box"></div>
-      <div class="banner"></div>
+      <!-- 四张广告图 -->
+      <div class="ads-box">
+        <a
+          :href="'/#/product/' + item.id"
+          v-for="(item, index) in adsList"
+          :key="index"
+        >
+          <img :src="item.img" alt="" />
+        </a>
+      </div>
+      <div class="banner">
+        <a href="/#/product/30"><img src="/imgs/banner-1.png" alt=""/></a>
+      </div>
       <div class="product-box"></div>
     </div>
 
@@ -194,6 +205,24 @@ export default {
           { id: 30, img: '/imgs/item-box-1.png', name: '小米cc9' },
           { id: 30, img: '/imgs/item-box-1.png', name: '小米cc9' },
         ],
+      ],
+      adsList: [
+        {
+          id: 33,
+          img: '/imgs/ads/ads-1.png',
+        },
+        {
+          id: 48,
+          img: '/imgs/ads/ads-2.jpg',
+        },
+        {
+          id: 45,
+          img: '/imgs/ads/ads-3.png',
+        },
+        {
+          id: 47,
+          img: '/imgs/ads/ads-4.jpg',
+        },
       ],
     }
   },
@@ -290,6 +319,25 @@ export default {
           }
         }
       }
+    }
+  }
+  .ads-box {
+    @include flex();
+    margin-top: 14px;
+    margin-bottom: 31px;
+    a {
+      display: inline-block;
+      width: 100%;
+      width: 296px;
+      height: 167px;
+    }
+  }
+  .banner {
+    margin-bottom: 50px;
+    height: 130px;
+    a {
+      display: inline-block;
+      height: 130px;
     }
   }
 }
