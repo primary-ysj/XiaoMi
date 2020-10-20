@@ -11,3 +11,14 @@
     background: url($url) no-repeat center;
     background-size: $size;
 }
+
+@mixin positionImg ($pos:absolute, $top:0px, $right:0px, $width:5px, $height:5px, $url:'', $size:contain) {
+    // display: inline-block;
+    position: $pos;
+    top: $top;
+    right: $right;
+    width: $width;
+    height: $height;
+    background: url($url) no-repeat center;
+    background-size: $size;
+}

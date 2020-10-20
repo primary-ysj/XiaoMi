@@ -163,6 +163,18 @@
     </div>
 
     <server-bar></server-bar>
+    <!-- 模态框 -->
+    <modal
+      title="提示"
+      sureText="查看购物车"
+      btnType="1"
+      modalType="middle"
+      :showModal="false"
+    >
+      <template v-slot:body>
+        <p>商品添加成功!</p>
+      </template>
+    </modal>
   </div>
 </template>
 
@@ -255,6 +267,7 @@ export default {
         },
       ],
       phoneList: [],
+      isShowModal: false,
     }
   },
   created() {
@@ -266,12 +279,12 @@ export default {
         .get('/products', {
           params: {
             categoryId: 100012,
-            pageSize: 8,
+            pageSize: 14,
           },
         })
         .then(res => {
           // console.log(res)
-          this.phoneList = [res.list.slice(0, 4), res.list.slice(4, 8)]
+          this.phoneList = [res.list.slice(6, 10), res.list.slice(10, 14)]
           // console.log(this.phoneList)
         })
     },
