@@ -1,6 +1,7 @@
 <template>
   <div class="index">
     <div class="container">
+      <!-- 轮播 -->
       <div class="swiper-box">
         <!-- 侧列导航 -->
         <div class="nav-menu">
@@ -126,10 +127,39 @@
           <img :src="item.img" alt="" />
         </a>
       </div>
+      <!-- banner -->
       <div class="banner">
         <a href="/#/product/30"><img src="/imgs/banner-1.png" alt=""/></a>
       </div>
-      <div class="product-box"></div>
+    </div>
+    <!-- 手机产品 -->
+    <div class="product-box">
+      <div class="container">
+        <h2>手机</h2>
+        <div class="wrapper">
+          <div class="banner-left">
+            <a href="/#/product/35">
+              <img src="/imgs/mix-alpha.jpg" alt="" />
+            </a>
+          </div>
+          <div class="list-box">
+            <div class="list" v-for="(arr, i) in phoneList" :key="i">
+              <div class="item" v-for="(item, j) in arr" :key="j">
+                <span v-if="j % 2 == 0" class="new-pro">新品</span>
+                <span v-else class="kill-pro">秒杀</span>
+                <div class="item-img">
+                  <img :src="item.mainImage" alt="" />
+                </div>
+                <div class="item-info">
+                  <h3>{{ item.name }}</h3>
+                  <p>{{ item.subtitle }}</p>
+                  <p class="price">{{ item.price | price }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <server-bar></server-bar>
@@ -224,7 +254,27 @@ export default {
           img: '/imgs/ads/ads-4.jpg',
         },
       ],
+      phoneList: [],
     }
+  },
+  created() {
+    this.init()
+  },
+  methods: {
+    init() {
+      this.$axios
+        .get('/products', {
+          params: {
+            categoryId: 100012,
+            pageSize: 8,
+          },
+        })
+        .then(res => {
+          // console.log(res)
+          this.phoneList = [res.list.slice(0, 4), res.list.slice(4, 8)]
+          // console.log(this.phoneList)
+        })
+    },
   },
   components: {
     Swiper,
@@ -338,6 +388,91 @@ export default {
     a {
       display: inline-block;
       height: 130px;
+    }
+  }
+  .product-box {
+    background-color: $colorJ;
+    padding: 30px 0 50px;
+    h2 {
+      font-size: $fontF;
+      height: 21px;
+      line-height: 21px;
+      color: $colorB;
+      margin-bottom: 20px;
+    }
+    .wrapper {
+      display: flex;
+      .banner-left {
+        a {
+          display: inline-block;
+          width: 224px;
+          height: 619px;
+          margin-right: 16px;
+        }
+      }
+      .list-box {
+        flex: 1;
+        .list {
+          @include flex();
+          margin-bottom: 14px;
+          &:last-child {
+            margin-bottom: 0;
+          }
+          .item {
+            width: 236px;
+            height: 302px;
+            background-color: $colorG;
+            text-align: center;
+            span {
+              display: inline-block;
+              width: 67px;
+              height: 24px;
+              line-height: 24px;
+              font-size: 14px;
+              color: $colorG;
+              &.new-pro {
+                background-color: #7ecf68;
+              }
+              &.kill-pro {
+                background-color: #e82626;
+              }
+            }
+            .item-img {
+              height: 195px;
+              img {
+                width: 100%;
+                height: 100%;
+              }
+            }
+            .item-info {
+              h3 {
+                font-size: $fontJ;
+                color: $colorB;
+                line-height: 14px;
+                font-weight: 700;
+              }
+              p {
+                color: $colorD;
+                line-height: 13px;
+                margin: 6px 0 13px;
+              }
+              .price {
+                color: #f20a0a;
+                font-weight: 700;
+                font-size: 14px;
+                cursor: pointer;
+                vertical-align: middle;
+                &::after {
+                  content: '';
+                  margin-left: 5px;
+                  @include bgimg(22px, 22px, '/imgs/icon-cart-hover.png');
+                  vertical-align: middle;
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

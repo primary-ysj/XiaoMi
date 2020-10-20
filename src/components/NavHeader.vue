@@ -103,12 +103,6 @@ export default {
         })
     },
   },
-  filters: {
-    price: function(value) {
-      if (!value) return '¥0.00元'
-      return '¥' + value.toFixed(2) + '元'
-    },
-  },
 }
 </script>
 

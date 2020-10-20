@@ -16,6 +16,10 @@ axios.defaults.timeout = 8000
 // axios.defaults.baseURL = env.baseURL
 
 
+Vue.filter('price', function(value) {
+    if (!value) return '¥0.00元'
+    return '¥' + value.toFixed(2) + '元'
+})
 
 //引入公共组件
 import './components/global.js'
