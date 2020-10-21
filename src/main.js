@@ -2,9 +2,12 @@ import Vue from 'vue'
 import router from './router'
 import axios from 'axios'
 import App from './App.vue'
+import VueLazyLoad from 'vue-lazyload'
 // import env from './env'
 
-
+Vue.use(VueLazyLoad, {
+    loading: '/imgs/loading-svg/loading-bars.svg'
+})
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 

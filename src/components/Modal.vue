@@ -1,22 +1,48 @@
 <template>
-  <div class="modal" v-show="showModal">
-    <!-- 遮罩层 -->
-    <div class="mask"></div>
-    <!-- 弹窗 -->
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <span>标题123</span>
-        <a href="javascript:;" class="icon-close"></a>
-      </div>
-      <div class="modal-body">
-        <slot name="body"></slot>
-      </div>
-      <div class="modal-footer">
-        <a href="javascript:;" class="btn">确认</a>
-        <a href="javascript:;" class="btn">取消</a>
+  <transition name="slide">
+    <div class="modal" v-show="showModal">
+      <!-- 遮罩层 -->
+      <div class="mask"></div>
+      <!-- 弹窗 -->
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <span>{{ title }}</span>
+          <a
+            href="javascript:;"
+            class="icon-close"
+            @click="$emit('cancel')"
+          ></a>
+        </div>
+        <div class="modal-body">
+          <slot name="body"></slot>
+        </div>
+        <div class="modal-footer">
+          <a
+            href="javascript:;"
+            class="btn"
+            v-if="btnType == 1"
+            @click="$emit('submit')"
+            >{{ sureText }}</a
+          >
+          <a
+            href="javascript:;"
+            class="btn"
+            v-if="btnType == 2"
+            @click="$emit('cancel')"
+            >{{ cancelText }}</a
+          >
+          <div class="btn-group" v-if="btnType == 3">
+            <a href="javascript:;" class="btn" @click="$emit('submit')">{{
+              sureText
+            }}</a>
+            <a href="javascript:;" class="btn" @click="$emit('cancel')">{{
+              cancelText
+            }}</a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -47,4 +73,5 @@ export default {
 @import '../assets/scss/config.scss';
 @import '../assets/scss/mixin.scss';
 @import '../assets/scss/modal.scss';
+@import '../assets/scss/button.scss';
 </style>

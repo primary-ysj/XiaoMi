@@ -12,7 +12,7 @@
                 <ul v-for="(item, index) in menuList" :key="index">
                   <li v-for="(sub, index) in item" :key="index">
                     <a :href="`/#/product/${sub.id}`">
-                      <img :src="sub.img" alt="" />{{ sub.name }}
+                      <img v-lazy="sub.img" alt="" />{{ sub.name }}
                     </a>
                   </li>
                 </ul>
@@ -24,7 +24,7 @@
                 <ul v-for="(item, index) in menuList" :key="index">
                   <li v-for="(sub, index) in item" :key="index">
                     <a :href="`/#/product/${sub.id}`">
-                      <img :src="sub.img" alt="" />{{ sub.name }}
+                      <img v-lazy="sub.img" alt="" />{{ sub.name }}
                     </a>
                   </li>
                 </ul>
@@ -36,7 +36,7 @@
                 <ul v-for="(item, index) in menuList" :key="index">
                   <li v-for="(sub, index) in item" :key="index">
                     <a :href="`/#/product/${sub.id}`">
-                      <img :src="sub.img" alt="" />{{ sub.name }}
+                      <img v-lazy="sub.img" alt="" />{{ sub.name }}
                     </a>
                   </li>
                 </ul>
@@ -48,7 +48,7 @@
                 <ul v-for="(item, index) in menuList" :key="index">
                   <li v-for="(sub, index) in item" :key="index">
                     <a :href="`/#/product/${sub.id}`">
-                      <img :src="sub.img" alt="" />{{ sub.name }}
+                      <img v-lazy="sub.img" alt="" />{{ sub.name }}
                     </a>
                   </li>
                 </ul>
@@ -60,7 +60,7 @@
                 <ul v-for="(item, index) in menuList" :key="index">
                   <li v-for="(sub, index) in item" :key="index">
                     <a :href="`/#/product/${sub.id}`">
-                      <img :src="sub.img" alt="" />{{ sub.name }}
+                      <img v-lazy="sub.img" alt="" />{{ sub.name }}
                     </a>
                   </li>
                 </ul>
@@ -72,7 +72,7 @@
                 <ul v-for="(item, index) in menuList" :key="index">
                   <li v-for="(sub, index) in item" :key="index">
                     <a :href="`/#/product/${sub.id}`">
-                      <img :src="sub.img" alt="" />{{ sub.name }}
+                      <img v-lazy="sub.img" alt="" />{{ sub.name }}
                     </a>
                   </li>
                 </ul>
@@ -84,7 +84,7 @@
                 <ul v-for="(item, index) in menuList" :key="index">
                   <li v-for="(sub, index) in item" :key="index">
                     <a :href="`/#/product/${sub.id}`">
-                      <img :src="sub.img" alt="" />{{ sub.name }}
+                      <img v-lazy="sub.img" alt="" />{{ sub.name }}
                     </a>
                   </li>
                 </ul>
@@ -96,7 +96,7 @@
                 <ul v-for="(item, index) in menuList" :key="index">
                   <li v-for="(sub, index) in item" :key="index">
                     <a :href="`/#/product/${sub.id}`">
-                      <img :src="sub.img" alt="" />{{ sub.name }}
+                      <img v-lazy="sub.img" alt="" />{{ sub.name }}
                     </a>
                   </li>
                 </ul>
@@ -108,7 +108,7 @@
         <swiper ref="mySwiper" :options="swiperOptions">
           <swiper-slide v-for="(item, index) in sildeList" :key="index">
             <a :href="`/#/product/${item.id}`">
-              <img :src="item.img" />
+              <img v-lazy="item.img" />
             </a>
           </swiper-slide>
           <!-- Optional controls -->
@@ -124,12 +124,12 @@
           v-for="(item, index) in adsList"
           :key="index"
         >
-          <img :src="item.img" alt="" />
+          <img v-lazy="item.img" alt="" />
         </a>
       </div>
       <!-- banner -->
       <div class="banner">
-        <a href="/#/product/30"><img src="/imgs/banner-1.png" alt=""/></a>
+        <a href="/#/product/30"><img v-lazy="'/imgs/banner-1.png'" alt=""/></a>
       </div>
     </div>
     <!-- 手机产品 -->
@@ -139,7 +139,7 @@
         <div class="wrapper">
           <div class="banner-left">
             <a href="/#/product/35">
-              <img src="/imgs/mix-alpha.jpg" alt="" />
+              <img v-lazy="'/imgs/mix-alpha.jpg'" alt="" />
             </a>
           </div>
           <div class="list-box">
@@ -148,12 +148,14 @@
                 <span v-if="j % 2 == 0" class="new-pro">新品</span>
                 <span v-else class="kill-pro">秒杀</span>
                 <div class="item-img">
-                  <img :src="item.mainImage" alt="" />
+                  <img v-lazy="item.mainImage" alt="" />
                 </div>
                 <div class="item-info">
                   <h3>{{ item.name }}</h3>
                   <p>{{ item.subtitle }}</p>
-                  <p class="price">{{ item.price | price }}</p>
+                  <p class="price" @click="addCart(item.id)">
+                    {{ item.price | price }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -169,7 +171,9 @@
       sureText="查看购物车"
       btnType="1"
       modalType="middle"
-      :showModal="false"
+      :showModal="isShowModal"
+      @cancel="isShowModal = false"
+      @submit="goToCart"
     >
       <template v-slot:body>
         <p>商品添加成功!</p>
@@ -274,6 +278,27 @@ export default {
     this.init()
   },
   methods: {
+    //添加购物车
+    addCart() {
+      this.isShowModal = true
+      // this.$axios
+      //   .post('/carts', {
+      //     productId: id,
+      //     selected: true,
+      //   })
+      //   .then(res => {
+      //     console.log(res)
+
+      //   })
+      //   .catch(() => {
+      //     this.isShowModal = true
+      //   })
+    },
+    //跳转购物车
+    goToCart() {
+      this.$router.push('/cart')
+    },
+    //展示手机列表
     init() {
       this.$axios
         .get('/products', {
