@@ -14,7 +14,7 @@
           <a v-else href="javascript:;" @click="login">登录</a>
           <a v-if="username" href="javascript:;">我的订单</a>
           <a href="javascript:;" class="my-cart" @click="goCart">
-            <span class="icon-cart"></span> 购物车</a
+            <span class="icon-cart"></span> 购物车({{ cartCount }})</a
           >
         </div>
       </div>
@@ -67,16 +67,29 @@
 </template>
 
 <script>
+// import { mapState } from 'vuex'
 export default {
   name: 'nav-header',
   data() {
     return {
       phoneList: [],
-      username: '',
     }
+  },
+  computed: {
+    username() {
+      return this.$store.state.username
+    },
+    cartCount() {
+      return this.$store.state.cartCount
+    },
+    // ...mapState(['username', 'cartCount']),
   },
   created() {
     this.getProductList()
+    let params = this.$route.params
+    if (params && params.from == 'login') {
+      this.getCartCount()
+    }
   },
   methods: {
     //登录函数
@@ -101,6 +114,12 @@ export default {
           this.phoneList = res.list
           console.log(this.phoneList)
         })
+    },
+    //获取购物车
+    getCartCount() {
+      this.$axios.get('/carts/products/sum').then((res = 0) => {
+        this.$store.dispatch('saveCartCount', res)
+      })
     },
   },
 }

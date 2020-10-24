@@ -3,11 +3,16 @@ import router from './router'
 import axios from 'axios'
 import App from './App.vue'
 import VueLazyLoad from 'vue-lazyload'
+import VueCookie from 'vue-cookie'
+import store from './store'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 // import env from './env'
-
+Vue.use(ElementUI);
 Vue.use(VueLazyLoad, {
     loading: '/imgs/loading-svg/loading-bars.svg'
 })
+Vue.use(VueCookie)
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 
@@ -17,6 +22,11 @@ axios.defaults.timeout = 8000
 
 //jsonp cors方式获取基地址
 // axios.defaults.baseURL = env.baseURL
+import storage from './storage'
+storage.setItem('name', 'ls')
+let res = storage.getStorage()
+console.log(res);
+
 
 
 Vue.filter('price', function(value) {
@@ -39,12 +49,15 @@ axios.interceptors.response.use(function(response) {
         return res.data
     } else if (res.status == 10) {
         window.location.href = '/#/login'
+        return Promise.reject(res)
     } else {
         alert(res.msg)
+        return Promise.reject(res)
     }
 })
 
 new Vue({
     router,
+    store,
     render: h => h(App),
 }).$mount('#app')

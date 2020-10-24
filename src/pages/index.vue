@@ -108,7 +108,7 @@
         <swiper ref="mySwiper" :options="swiperOptions">
           <swiper-slide v-for="(item, index) in sildeList" :key="index">
             <a :href="`/#/product/${item.id}`">
-              <img v-lazy="item.img" />
+              <img :src="item.img" />
             </a>
           </swiper-slide>
           <!-- Optional controls -->
@@ -279,20 +279,20 @@ export default {
   },
   methods: {
     //添加购物车
-    addCart() {
-      this.isShowModal = true
-      // this.$axios
-      //   .post('/carts', {
-      //     productId: id,
-      //     selected: true,
-      //   })
-      //   .then(res => {
-      //     console.log(res)
-
-      //   })
-      //   .catch(() => {
-      //     this.isShowModal = true
-      //   })
+    addCart(id) {
+      this.$axios
+        .post('/carts', {
+          productId: id,
+          selected: true,
+        })
+        .then(res => {
+          this.isShowModal = true
+          // console.log(res)
+          this.$store.dispatch('saveCartCount', res.cartTotalQuantity)
+        })
+        .catch(res => {
+          console.log(res)
+        })
     },
     //跳转购物车
     goToCart() {

@@ -2,6 +2,7 @@
   <div>
     <order-header></order-header>
     cart
+    <server-bar></server-bar>
     <nav-footer></nav-footer>
   </div>
 </template>
