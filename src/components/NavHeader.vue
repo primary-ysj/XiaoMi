@@ -12,7 +12,8 @@
         <div class="topbar-user">
           <a v-if="username" href="javascript:;">{{ username }}</a>
           <a v-else href="javascript:;" @click="login">登录</a>
-          <a v-if="username" href="javascript:;">我的订单</a>
+          <a v-if="username" href="javascript:;" @click="logout">退出</a>
+          <a v-if="username" href="/#/order/list">我的订单</a>
           <a href="javascript:;" class="my-cart" @click="goCart">
             <span class="icon-cart"></span> 购物车({{ cartCount }})</a
           >
@@ -34,7 +35,7 @@
             <div class="children">
               <ul>
                 <li class="product" v-for="item in phoneList" :key="item.id">
-                  <a :href="'/#/product/' + item.id" target="_blank">
+                  <a :href="'/#/product/' + item.id">
                     <div class="product-pic">
                       <img v-lazy="item.mainImage" :alt="item.subtitle" />
                     </div>
@@ -92,6 +93,15 @@ export default {
     }
   },
   methods: {
+    //退出函数
+    logout() {
+      this.$axios.post('/user/logout').then(() => {
+        this.$message.success('退出成功')
+        this.$cookie.delete('userId')
+        this.$store.dispatch('saveUserName', '')
+        this.$store.dispatch('saveCartCount', '0')
+      })
+    },
     //登录函数
     login() {
       this.$router.push('/login')
@@ -159,28 +169,7 @@ export default {
       position: relative;
       height: 112px;
       @include flex();
-      .header-logo {
-        height: 55px;
-        width: 55px;
-        background-color: $colorA;
-        a {
-          display: inline-block;
-          width: 110px;
-          height: 55px;
-          transition: all, 0.3s;
-          &::before {
-            content: '';
-            @include bgimg(55px, 55px, '/imgs/mi-logo.png');
-          }
-          &::after {
-            content: '';
-            @include bgimg(55px, 55px, '/imgs/mi-home.png');
-          }
-          &:hover {
-            margin-left: -55px;
-          }
-        }
-      }
+
       .header-menu {
         display: inline-block;
         width: 643px;

@@ -5,16 +5,18 @@ import App from './App.vue'
 import VueLazyLoad from 'vue-lazyload'
 import VueCookie from 'vue-cookie'
 import store from './store'
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import { Message, Pagination } from 'element-ui';
 // import env from './env'
-Vue.use(ElementUI);
+
 Vue.use(VueLazyLoad, {
     loading: '/imgs/loading-svg/loading-bars.svg'
 })
 Vue.use(VueCookie)
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
+    //挂载elm提示插件
+Vue.prototype.$message = Message;
+Vue.use(Pagination);
 
 //代理方式设置axios的基础配置
 axios.defaults.baseURL = '/api'
@@ -51,9 +53,14 @@ axios.interceptors.response.use(function(response) {
         window.location.href = '/#/login'
         return Promise.reject(res)
     } else {
-        alert(res.msg)
+        Message.error(res.msg)
         return Promise.reject(res)
     }
+}, function(error) {
+    console.dir(error);
+    let res = error.response
+    Message.error(res.data.message)
+    return Promise.reject(error)
 })
 
 new Vue({

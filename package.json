@@ -12,10 +12,10 @@
     "dependencies": {
         "axios": "^0.20.0",
         "core-js": "^3.6.5",
-        "element-ui": "^2.13.2",
         "jsonp": "^0.2.1",
         "mockjs": "^1.1.0",
         "node-sass": "^4.14.1",
+        "qrcode": "^1.4.4",
         "sass-loader": "^10.0.3",
         "swiper": "^5.3.6",
         "vue": "^2.6.11",
@@ -31,6 +31,8 @@
         "@vue/cli-plugin-eslint": "~4.5.0",
         "@vue/cli-service": "~4.5.0",
         "babel-eslint": "^10.1.0",
+        "babel-plugin-component": "^1.1.1",
+        "element-ui": "^2.13.2",
         "eslint": "^6.7.2",
         "eslint-plugin-vue": "^6.2.2",
         "vue-template-compiler": "^2.6.11"

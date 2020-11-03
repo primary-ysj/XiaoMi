@@ -50,8 +50,8 @@ export default {
   name: 'login',
   data() {
     return {
-      username: '',
-      password: '',
+      username: 'admin',
+      password: 'admin',
       userId: '',
     }
   },

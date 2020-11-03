@@ -5,16 +5,26 @@ import Router from 'vue-router'
 
 //引入页面组件
 import Home from './pages/home.vue'
-import Index from './pages/index.vue'
-import Product from './pages/product.vue'
-import Detail from './pages/detail.vue'
-import Cart from './pages/cart.vue'
-import Order from './pages/order.vue'
-import OrderList from './pages/orderList.vue'
-import OrderConfirm from './pages/orderConfirm.vue'
-import OrderPay from './pages/orderPay.vue'
-import AliPay from './pages/aliPay.vue'
-import Login from './pages/login.vue'
+const Index = () =>
+    import ('./pages/index.vue')
+const Product = () =>
+    import ('./pages/product.vue')
+const Detail = () =>
+    import ('./pages/detail.vue')
+const Cart = () =>
+    import ('./pages/cart.vue')
+const Order = () =>
+    import ('./pages/order.vue')
+const OrderList = () =>
+    import ('./pages/orderList.vue')
+const OrderConfirm = () =>
+    import ('./pages/orderConfirm.vue')
+const OrderPay = () =>
+    import ('./pages/orderPay.vue')
+const AliPay = () =>
+    import ('./pages/aliPay.vue')
+const Login = () =>
+    import ('./pages/login.vue')
 Vue.use(Router)
 
 export default new Router({
