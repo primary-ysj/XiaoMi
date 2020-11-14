@@ -24,10 +24,8 @@ axios.defaults.timeout = 8000
 
 //jsonp cors方式获取基地址
 // axios.defaults.baseURL = env.baseURL
-import storage from './storage'
-storage.setItem('name', 'ls')
-let res = storage.getStorage()
-console.log(res);
+// import storage from './storage'
+
 
 
 

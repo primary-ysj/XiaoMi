@@ -10,7 +10,13 @@ export default {
   components: {},
   mounted() {
     if (this.$cookie.get('userId')) {
-      this.getUser()
+      let name = window.localStorage.getItem('username')
+      // console.log(name)
+      if (name) {
+        this.$store.dispatch('saveUserName', name)
+      } else {
+        this.getUser()
+      }
       this.getCartCount()
     }
   },
@@ -25,6 +31,7 @@ export default {
         })
         .catch(res => {
           console.log(res)
+          localStorage
         })
     },
     getCartCount() {
